@@ -13,13 +13,7 @@ void main() => runApp(MaterialApp(
 
 class XylophonePage extends StatelessWidget {
   final player = AudioCache();
-  playSound({int numberOfSound}) {
-    player.play("note$numberOfSound.wav");
-  }
-
-  List<Widget> buildKeys() {
-    List<Widget> colorsSounds = List<Widget>();
-    const colors = <Color>[
+  final colors = <Color>[
       Colors.red,
       Colors.blue,
       Colors.yellow,
@@ -28,6 +22,12 @@ class XylophonePage extends StatelessWidget {
       Colors.pink,
       Colors.teal
     ];
+  playSound({int numberOfSound}) {
+    player.play("note$numberOfSound.wav");
+  }
+
+  List<Widget> buildKeys() {
+    List<Widget> colorsSounds = List<Widget>();
 
     for (int i = 1; i < 8; i++) {
       colorsSounds.add(Expanded(
