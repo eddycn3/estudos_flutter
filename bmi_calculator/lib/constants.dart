@@ -14,3 +14,8 @@ const knumberStyle = TextStyle(
   fontSize: 50,
   fontWeight: FontWeight.w900,
 );
+
+const klargeLabelButton = TextStyle(
+  fontSize: 25,
+  fontWeight: FontWeight.bold,
+);

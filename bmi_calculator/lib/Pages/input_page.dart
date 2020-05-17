@@ -1,14 +1,13 @@
+import 'package:bmi_calculator/calculator_brain.dart';
 import 'package:bmi_calculator/widgets/button_icon.dart';
+import 'package:bmi_calculator/widgets/calc_large_bottom_button.dart';
 import 'package:bmi_calculator/widgets/icon_gender.dart';
 import 'package:bmi_calculator/widgets/reusable_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import '../app_enums.dart';
 import '../constants.dart';
-
-enum GenderType { mars, venus }
-
-enum ButtonType { minus, plus }
+import "result_page.dart";
 
 class InputPage extends StatefulWidget {
   @override
@@ -16,18 +15,17 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  GenderType selectedGender;
-  int height = 180;
-  int peso = 40;
-  int idade = 10;
+  GenderType _selectedGender;
+  int _altura = 180;
+  int _peso = 40;
+  int _idade = 10;
 
   setPeso(ButtonType btnT) {
-    var pVar = peso;
     setState(() {
       if (btnT == ButtonType.minus) {
-        peso--;
+        _peso--;
       } else {
-        peso++;
+        _peso++;
       }
     });
   }
@@ -46,12 +44,12 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 Expanded(
                   child: ReusableCard(
-                    updateColor: () {
+                    onTapped: () {
                       setState(() {
-                        selectedGender = GenderType.mars;
+                        _selectedGender = GenderType.mars;
                       });
                     },
-                    reusableCardColor: selectedGender == GenderType.mars
+                    reusableCardColor: _selectedGender == GenderType.mars
                         ? kactiveColor
                         : kinactiveColor,
                     reusableCardChild: IconGender(
@@ -62,12 +60,12 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   child: ReusableCard(
-                    updateColor: () {
+                    onTapped: () {
                       setState(() {
-                        selectedGender = GenderType.venus;
+                        _selectedGender = GenderType.venus;
                       });
                     },
-                    reusableCardColor: selectedGender == GenderType.venus
+                    reusableCardColor: _selectedGender == GenderType.venus
                         ? kactiveColor
                         : kinactiveColor,
                     reusableCardChild: IconGender(
@@ -93,7 +91,7 @@ class _InputPageState extends State<InputPage> {
                   textBaseline: TextBaseline.alphabetic,
                   children: <Widget>[
                     Text(
-                      height.toString(),
+                      _altura.toString(),
                       style: knumberStyle,
                     ),
                     Text(
@@ -112,12 +110,12 @@ class _InputPageState extends State<InputPage> {
                       overlayShape:
                           RoundSliderOverlayShape(overlayRadius: 30.0)),
                   child: Slider(
-                    value: height.toDouble(),
+                    value: _altura.toDouble(),
                     min: 120.0,
                     max: 220.0,
                     onChanged: (double newValue) {
                       setState(() {
-                        height = newValue.round();
+                        _altura = newValue.round();
                       });
                     },
                   ),
@@ -139,7 +137,7 @@ class _InputPageState extends State<InputPage> {
                         style: klabelStyle,
                       ),
                       Text(
-                        peso.toString(),
+                        _peso.toString(),
                         style: knumberStyle,
                       ),
                       Row(
@@ -177,7 +175,7 @@ class _InputPageState extends State<InputPage> {
                         style: klabelStyle,
                       ),
                       Text(
-                        (idade = idade > 0 ? idade : 10).toString(),
+                        (_idade = _idade > 0 ? _idade : 10).toString(),
                         style: knumberStyle,
                       ),
                       Row(
@@ -187,7 +185,7 @@ class _InputPageState extends State<InputPage> {
                             icon: FontAwesomeIcons.minus,
                             onClick: () {
                               setState(() {
-                                idade--;
+                                _idade--;
                               });
                             },
                           ),
@@ -198,7 +196,7 @@ class _InputPageState extends State<InputPage> {
                             icon: FontAwesomeIcons.plus,
                             onClick: () {
                               setState(() {
-                                idade++;
+                                _idade++;
                               });
                             },
                           )
@@ -210,11 +208,15 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: kfooterColor,
-            height: kfooterHight,
-            width: double.infinity,
-            margin: EdgeInsets.only(top: 10.0),
+          CalcLargeBottomButton(
+            textAction: "CALCULAR",
+            goTo: () => {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ResultPage(
+                          new CalculadorBrain(_altura / 100, _peso))))
+            },
           )
         ],
       ),
