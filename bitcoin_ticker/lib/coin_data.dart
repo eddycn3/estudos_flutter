@@ -46,23 +46,28 @@ const List<String> cryptoList = [
 class CoinData {
   final _apiKey = 'DA007E6E-8EAD-40DA-B8F2-ADB3E87B451A';
 
-  Future<List<CoinModel>> getCoinData(String selectedCurrency) async {
-    List<CoinModel> _listModel = [];
+  Future<CoinModel> getCoinData(String crypto, String selectedCurrency) async {
+    CoinModel coinModel;
     try {
-      var ret = await http.get(
-        "https://rest.coinapi.io/v1/exchangerate/$selectedCurrency?apiKey=$_apiKey",
-      );
+      final url =
+          "https://rest.coinapi.io/v1/exchangerate/$crypto/$selectedCurrency/?apiKey=$_apiKey";
+      // https://rest.coinapi.io/v1/exchangerate/BTC/BRL/?apiKey=DA007E6E-8EAD-40DA-B8F2-ADB3E87B451A
+
+      print(url);
+      var ret = await http.get(url);
       if (ret.statusCode == 200) {
         var json = jsonDecode(ret.body);
-        for (var o in json["rates"]) {
-          _listModel.add(CoinModel.fromJson(o));
-        }
+        print(json);
+        coinModel = CoinModel.fromJson(json);
+        // for (var o in json["rates"]) {
+        //   _listModel.add(CoinModel.fromJson(o));
+        // }
       } else {
-        _listModel = null;
+        coinModel = null;
       }
     } catch (e) {
       print("Exeption on: " + e);
     }
-    return _listModel;
+    return coinModel;
   }
 }

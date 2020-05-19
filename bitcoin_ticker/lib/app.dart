@@ -15,6 +15,7 @@ class _AppState extends State<App> {
   double currencyBTCValue = 0;
   double currencyETHValue = 0;
   double currencyLTCValue = 0;
+  bool isLoading;
 
   DropdownButton<String> getDroidDropDown() {
     List<DropdownMenuItem<String>> listItens = [];
@@ -33,8 +34,8 @@ class _AppState extends State<App> {
       onChanged: (newValue) {
         setState(() {
           selectedCurrency = newValue;
-          getData();
         });
+        getData();
       },
     );
   }
@@ -51,35 +52,27 @@ class _AppState extends State<App> {
       backgroundColor: Colors.lightBlue,
       children: listItens,
       itemExtent: 42,
-      onSelectedItemChanged: (selectedIndex) {},
+      onSelectedItemChanged: (selectedIndex) {
+        setState(() {
+          selectedCurrency = currenciesList[selectedIndex];
+        });
+        getData();
+      },
     );
   }
 
-// {
-//   "time": "2020-05-18T15:31:23.9546097Z",
-//   "asset_id_base": "BTC",
-//   "asset_id_quote": "BRL",
-//   "rate": 56059.572462892511041039214512
-// }
+  void getData() async {
+    isLoading = true;
+    var bTCValue = (await coinData.getCoinData("BTC", selectedCurrency)).rate;
+    var eTHValue = (await coinData.getCoinData("ETH", selectedCurrency)).rate;
+    var lTCValue = (await coinData.getCoinData("LTC", selectedCurrency)).rate;
 
-  Future getData() async {
-    var values = await coinData.getCoinData(selectedCurrency);
-    print(values);
-    if (values == null) return;
-
-    for (var coinModel in values) {
-      switch (coinModel.asset_id_quote) {
-        case ("BTC"):
-          currencyBTCValue = coinModel.rate;
-          break;
-        case ("ETH"):
-          currencyETHValue = coinModel.rate;
-          break;
-        case ("LTC"):
-          currencyLTCValue = coinModel.rate;
-          break;
-      }
-    }
+    setState(() {
+      currencyBTCValue = bTCValue;
+      currencyETHValue = eTHValue;
+      currencyLTCValue = lTCValue;
+    });
+    isLoading = false;
   }
 
   @override
@@ -103,17 +96,17 @@ class _AppState extends State<App> {
             children: [
               CriptoCurrencyCard(
                 cryptoCurrencyText: "BTC",
-                coinValue: currencyBTCValue,
+                coinValue: isLoading ? 0.0 : currencyBTCValue,
                 selectedCoin: selectedCurrency,
               ),
               CriptoCurrencyCard(
                 cryptoCurrencyText: "ETH",
-                coinValue: currencyETHValue,
+                coinValue: isLoading ? 0.0 : currencyETHValue,
                 selectedCoin: selectedCurrency,
               ),
               CriptoCurrencyCard(
                 cryptoCurrencyText: "LTC",
-                coinValue: currencyLTCValue,
+                coinValue: isLoading ? 0.0 : currencyLTCValue,
                 selectedCoin: selectedCurrency,
               ),
             ],
@@ -141,6 +134,7 @@ class CriptoCurrencyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formatedValue = coinValue.toStringAsFixed(2);
     return Padding(
       padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
       child: Card(
@@ -149,7 +143,7 @@ class CriptoCurrencyCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "1 $cryptoCurrencyText = $coinValue $selectedCoin",
+            "1 $cryptoCurrencyText =  $formatedValue $selectedCoin",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
