@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "603138736578",
+    "firebase_url": "https://das-good-shit-loja.firebaseio.com",
+    "project_id": "das-good-shit-loja",
+    "storage_bucket": "das-good-shit-loja.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603138736578:android:aa9c9b41309b49a7bf565b",
+        "android_client_info": {
+          "package_name": "com.appcorveloni.flash_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "603138736578-klgfk9k06bnljij7oarnmp3i962rt7b4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkvUDRRiwaTLmHhfaLKRwpi5TY_pE0mw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "603138736578-klgfk9k06bnljij7oarnmp3i962rt7b4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "603138736578-fndk4k8cfkf1fp3kpidac32chi79rijj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dasgoodshit.loja.dasGoodShitLojaApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
