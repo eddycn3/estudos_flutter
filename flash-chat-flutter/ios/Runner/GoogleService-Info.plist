@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>603138736578-uuj1qr8c5eqago1neuqqsjeju528283d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.603138736578-uuj1qr8c5eqago1neuqqsjeju528283d</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDm12G3SevtZiEKbrlYxr8IGw20niZxFV8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>603138736578</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.appcorveloni.flashchat</string>
+	<key>PROJECT_ID</key>
+	<string>das-good-shit-loja</string>
+	<key>STORAGE_BUCKET</key>
+	<string>das-good-shit-loja.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:603138736578:ios:1190dab468b88668bf565b</string>
+	<key>DATABASE_URL</key>
+	<string>https://das-good-shit-loja.firebaseio.com</string>
+</dict>
+</plist>
