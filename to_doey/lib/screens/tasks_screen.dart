@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:to_doey/models/tarefa.dart';
+import 'package:provider/provider.dart';
+import 'package:to_doey/main.dart';
+import 'package:to_doey/models/data_provider.dart';
 import 'package:to_doey/widgets/task_list.dart';
 import 'add_task_screen.dart';
 
-class TasksScreen extends StatefulWidget {
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Tarefa> _listOfTasks = [];
-
-  @override
+class TasksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF6CC0FC),
@@ -25,16 +19,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 child: Container(
                   padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: AddTaskScreen(
-                    onTaskAdded: (e) {
-                      if (e != null) {
-                        setState(() {
-                          _listOfTasks.add(Tarefa(titulo: e));
-                        });
-                        Navigator.pop(context);
-                      }
-                    },
-                  ),
+                  child: AddTaskScreen(),
                 ),
               ),
             );
@@ -67,7 +52,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       fontSize: 50.0,
                       fontWeight: FontWeight.w800),
                 ),
-                Text("${_listOfTasks.length} Tarefas",
+                Text("${context.watch<DataProvider>().listCount} Tarefas",
                     style: TextStyle(color: Colors.white, fontSize: 20.0))
               ],
             ),
@@ -81,7 +66,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(15.0),
                         topRight: Radius.circular(15.0))),
-                child: TaskList(list: _listOfTasks)),
+                child: TaskList()),
           ),
         ],
       ),

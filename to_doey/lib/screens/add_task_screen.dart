@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_doey/models/data_provider.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  final Function onTaskAdded;
-
-  const AddTaskScreen({this.onTaskAdded});
   @override
   Widget build(BuildContext context) {
     String _taskText;
@@ -44,7 +43,8 @@ class AddTaskScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   )),
               onPressed: () {
-                onTaskAdded(_taskText);
+                context.read<DataProvider>().addTarefa(_taskText);
+                Navigator.pop(context);
               },
             ),
           ],

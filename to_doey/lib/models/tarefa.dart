@@ -4,7 +4,9 @@ class Tarefa {
 
   Tarefa({this.titulo, this.isDone = false});
 
-  concluirTarefa() {
+  Map<String, dynamic> toJson() => {"titulo": titulo, "isDone": isDone};
+
+  updateTask() {
     isDone = !isDone;
   }
 }
